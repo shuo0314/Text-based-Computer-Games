@@ -2,27 +2,36 @@ package battleship;
 
 public class EmptySea extends Ship {
 	
+	final static int emptySeaLength = 1;
+	
+	final static String emptySeaType = "empty";
+	
 	public EmptySea() {
-		//To do
+		super(emptySeaLength);
 	}
 	
 	@Override
 	boolean shootAt(int row, int column) {
-		//To do
+		
+		return false;
 	}
 	
 	@Override
 	boolean isSunk() {
-		//To do
+		return false;
 	}
 	
+	/*
+	 * display "-" if a shot has been fired but nothing has been hit
+	 */
 	@Override
 	public String toString() {
+		return "-";
 	}
 	
 	@Override
 	public String getShipType() {
-		//To do
+		return emptySeaType;
 	}
 	
 }

@@ -63,6 +63,7 @@ class OceanTest {
 		int numSubmarines = 0;
 		int numEmptySeas = 0;
 		
+		//######Logic test again
 		for (int i = 0; i < ships.length; i++) {
 			for (int j = 0; j < ships[i].length; j++) {
 				Ship ship = ships[i][j];
@@ -119,8 +120,31 @@ class OceanTest {
 		
 		assertTrue(ocean.isOccupied(1, 5));
 		
-		//TODO
+		
 		//More tests
+		assertTrue(ocean.isOccupied(0, 0));
+		assertFalse(ocean.isOccupied(9, 9));
+		
+		Ship ship = new Cruiser();
+		row = 7;
+		column = 7;
+		horizontal = true;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		
+		assertTrue(ocean.isOccupied(7, 5));
+		assertFalse(ocean.isOccupied(7, 8));
+		
+		ship = new Battleship();
+		row = 3;
+		column = 9;
+		horizontal = true;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		
+		assertTrue(ocean.isOccupied(3, 6));
+		assertTrue(ocean.isOccupied(3, 7));
+		assertTrue(ocean.isOccupied(3, 8));
+		assertTrue(ocean.isOccupied(3, 9));
+		assertFalse(ocean.isOccupied(3, 5));
 	}
 
 	@Test
@@ -138,8 +162,36 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertTrue(ocean.shootAt(0, 5));
 		
-		//TODO
+		
 		//More tests
+		assertFalse(ocean.shootAt(0, 9));
+		
+		Ship ship = new Submarine();
+		row = 0;
+		column = 9;
+		horizontal = false;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		
+		assertTrue(ocean.shootAt(0, 9));
+		assertTrue(ship.isSunk());
+		
+		
+		
+		assertFalse(ocean.shootAt(6, 3));
+		
+		ship = new Cruiser();
+		row = 6;
+		column = 3;
+		horizontal = true;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		
+		assertTrue(ocean.shootAt(6, 3));
+		assertFalse(ship.isSunk());
+		assertTrue(ocean.shootAt(6, 2));
+		assertTrue(ocean.shootAt(6, 1));
+		assertFalse(ocean.shootAt(6, 0));
+		assertTrue(ship.isSunk());
+		assertFalse(ocean.shootAt(6, 2));
 	}
 
 	@Test
@@ -170,8 +222,28 @@ class OceanTest {
 		assertTrue(destroyer.isSunk());
 		assertEquals(6, ocean.getShotsFired());
 		
-		//TODO
+		
 		//More tests
+		Ship cruiser = new Cruiser();
+		row = 7;
+		column = 7;
+		horizontal = true;
+		cruiser.placeShipAt(row, column, horizontal, ocean);
+		
+		assertTrue(ocean.shootAt(7, 7));
+		assertFalse(cruiser.isSunk());
+		assertTrue(ocean.shootAt(7, 6));
+		assertFalse(cruiser.isSunk());
+		assertTrue(ocean.shootAt(7, 5));
+		assertTrue(cruiser.isSunk());
+		assertFalse(ocean.shootAt(7, 5));
+		assertEquals(10, ocean.getShotsFired());
+		
+		
+		assertTrue(ocean.shootAt(0, 0));
+		assertFalse(ocean.shootAt(0, 0));
+		assertFalse(ocean.shootAt(9, 9));
+		assertEquals(13, ocean.getShotsFired());
 	}
 
 	@Test
@@ -187,8 +259,23 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertEquals(1, ocean.getHitCount());
 		
-		//TODO
+		
 		//More tests
+		assertFalse(ocean.shootAt(2, 5));
+		assertTrue(ocean.shootAt(0, 5));
+		assertFalse(ocean.shootAt(0, 5));
+		assertTrue(destroyer.isSunk());
+		assertEquals(2, ocean.getHitCount());
+		
+		Ship cruiser = new Cruiser();
+		row = 7;
+		column = 7;
+		horizontal = true;
+		cruiser.placeShipAt(row, column, horizontal, ocean);
+		
+		assertFalse(ocean.shootAt(7, 8));
+		assertFalse(ocean.shootAt(7, 9));
+		assertEquals(2, ocean.getHitCount());
 	}
 	
 	@Test
@@ -205,8 +292,38 @@ class OceanTest {
 		assertEquals(1, ocean.getHitCount());
 		assertEquals(0, ocean.getShipsSunk());
 		
-		//TODO
+
 		//More tests
+		assertTrue(ocean.shootAt(0, 5));
+		assertTrue(destroyer.isSunk());
+		assertEquals(2, ocean.getHitCount());
+		assertEquals(1, ocean.getShipsSunk());
+		
+		Ship ship = new Submarine();
+		row = 9;
+		column = 9;
+		horizontal = true;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		
+		assertFalse(ocean.shootAt(8, 9));
+		assertFalse(ship.isSunk());
+		assertTrue(ocean.shootAt(9, 9));
+		assertTrue(ship.isSunk());
+		assertEquals(3, ocean.getHitCount());
+		assertEquals(2, ocean.getShipsSunk());
+		
+		
+		Ship cruiser = new Cruiser();
+		row = 7;
+		column = 7;
+		horizontal = false;
+		cruiser.placeShipAt(row, column, horizontal, ocean);
+		
+		assertFalse(ocean.shootAt(7, 9));
+		assertTrue(ocean.shootAt(7, 7));
+		assertFalse(cruiser.isSunk());
+		assertEquals(4, ocean.getHitCount());
+		assertEquals(2, ocean.getShipsSunk());
 	}
 
 	@Test
@@ -218,8 +335,109 @@ class OceanTest {
 		
 		assertEquals("empty", shipArray[0][0].getShipType());
 		
-		//TODO
+		
 		//More tests
+		Destroyer destroyer = new Destroyer();
+		int row = 1;
+		int column = 5;
+		boolean horizontal = false;
+		destroyer.placeShipAt(row, column, horizontal, ocean);
+		shipArray = ocean.getShipArray();
+		assertEquals("destroyer", shipArray[0][5].getShipType());
+		assertEquals("empty", shipArray[2][5].getShipType());
+		assertEquals(destroyer, shipArray[1][5]);
+		
+		Ship ship = new Submarine();
+		row = 9;
+		column = 9;
+		horizontal = true;
+		ship.placeShipAt(row, column, horizontal, ocean);
+		shipArray = ocean.getShipArray();
+		assertEquals(1, shipArray[9][9].getLength());
+		assertEquals("empty", shipArray[8][9].getShipType());
+		
+		
 	}
-
+	
+	@Test
+	void testsetShotsFired() {
+		int shots = ocean.getShotsFired();
+		assertEquals(0, shots);
+		shots++;
+		ocean.setShotsFired(shots);
+		assertEquals(1, ocean.getShotsFired());
+		
+		shots--;
+		ocean.setShotsFired(shots);
+		assertEquals(0, ocean.getShotsFired());
+		
+		shots = shots + 5;
+		ocean.setShotsFired(shots);
+		assertEquals(5, ocean.getShotsFired());
+		
+	}
+	
+	@Test
+	void testsetHitCount() {
+		int hitCount = ocean.getHitCount();
+		assertEquals(0, hitCount);
+		hitCount++;
+		ocean.setHitCount(hitCount);
+		assertEquals(1, ocean.getHitCount());
+		
+		hitCount--;
+		ocean.setHitCount(hitCount);
+		assertEquals(0, ocean.getHitCount());
+		
+		hitCount = hitCount + 5;
+		ocean.setHitCount(hitCount);
+		assertEquals(5, ocean.getHitCount());
+	}
+	
+	@Test
+	void testsetShipsSunk() {
+		int shipsSunk = ocean.getShipsSunk();
+		assertEquals(0, shipsSunk);
+		shipsSunk++;
+		ocean.setShipsSunk(shipsSunk);
+		assertEquals(1,ocean.getShipsSunk());
+		
+		shipsSunk--;
+		ocean.setShipsSunk(shipsSunk);
+		assertEquals(0,ocean.getShipsSunk());
+		
+		shipsSunk = shipsSunk +5;
+		ocean.setShipsSunk(shipsSunk);
+		assertEquals(5,ocean.getShipsSunk());
+		
+	}
+	
+	@Test
+	void testgetFireMap() {
+		assertFalse(ocean.getFireMap()[0][0]);
+		
+		ocean.shootAt(1, 1);
+		assertTrue(ocean.getFireMap()[1][1]);
+		
+		assertFalse(ocean.getFireMap()[9][9]);
+		ocean.shootAt(9, 9);
+		assertTrue(ocean.getFireMap()[9][9]);
+	}
+	
+	@Test
+	void testisGameOver() {
+		int shipsSunk = ocean.getShipsSunk();
+		assertEquals(0, shipsSunk);
+		assertFalse(ocean.isGameOver());
+		
+		ocean.setShipsSunk(ocean.getShipsSunk()+5);
+		assertEquals(5, ocean.getShipsSunk());
+		assertFalse(ocean.isGameOver());
+		
+		ocean.setShipsSunk(ocean.getShipsSunk()+5);
+		assertEquals(10, ocean.getShipsSunk());
+		assertEquals(10, ocean.numberOfShips);
+		assertTrue(ocean.isGameOver());
+	}
+	
 }
