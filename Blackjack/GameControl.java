@@ -3,12 +3,6 @@ package simple21;
 import java.util.Scanner;
 import java.util.Random;
 
-/**
- * Name: Shuo Li
- * Penn ID: 26541343
- * Statement: Get help from professor's OH on controlPlay method and printWinner method
- * /
-
 
 /**
  * This is a simplified version of a common card game, "21". 
@@ -80,7 +74,6 @@ public class GameControl {
      * @param humansName for human player
      */
     public void createPlayers(String humansName) {
-       // Students: your code goes here.
     	human = new HumanPlayer(humansName);//create a new human player object with name humansName
     	
     	player1 = new ComputerPlayer("Player1");//create a new ComputerPlayer object with name "Player1"
@@ -95,7 +88,6 @@ public class GameControl {
      * of each other player's cards, not the individual cards.)
      */
     public void deal() { 
-        // Students: your code goes here.
     	int hiddenCard = this.nextCard();//call nextCard method to get a random card as hiddenCard
     	int visibleCard = this.nextCard();//call nextCard method to get a random card as visibleCard
     	
@@ -130,7 +122,6 @@ public class GameControl {
      * @return a random integer in the range 1 - 10.
      */
     public int nextCard() { 
-    	// Students: your code goes here.
     	int randomNum = random.nextInt(13)+1;//Get a random number from 1 to 13
     	if (randomNum > 10) {//if random number is 11,12 or 13
     		randomNum = 10;//treat them as 10 and let randomInt equal to 10
@@ -183,7 +174,6 @@ public class GameControl {
      * @return true if all players have passed
      */
     public boolean checkAllPlayersHavePassed() {
-    	// Students: your code goes here.
     	if (human.passed && player1.passed && player2.passed && player3.passed) {//check if human passed and all computer players passed
     		return true;//return true if all passed
     	}else {
@@ -196,7 +186,6 @@ public class GameControl {
      * Displays how many points each player had, and if applicable, who won.
      */
     public void printResults() { 
-        // Students: your code goes here.
     	System.out.println();//print blank line
     	System.out.println("Game over.");//print message "Game Over"
     	System.out.println(human.name+" has "+human.getScore()+" total points.");//print human's total points
@@ -211,7 +200,6 @@ public class GameControl {
      * Determines who won the game, and prints the results.
      */
     public void printWinner() { 
-        // Students: your code goes here.
     	int humanScore = human.getScore();//call getScore method and get points of human and assign it to humanScore
     	int player1Score = player1.getScore();//call getScore method and get points of player1 and assign it to player1Score
     	int player2Score = player2.getScore();//call getScore method and get points of player2 and assign it to player2Score
