@@ -45,7 +45,6 @@ public class ComputerPlayer {
      * @return true if this player wants another card
      */
     public boolean offerCard(HumanPlayer human, ComputerPlayer player1, ComputerPlayer player2, ComputerPlayer player3) { 
-    	// Students: your code goes here.
     	boolean response = true;//initialize a boolean variable response and set value as true
     	
     	int totalPoints = this.getScore();//get current total points of this player
@@ -63,7 +62,6 @@ public class ComputerPlayer {
      * @param card being taken
      */
     public void takeHiddenCard(int card) {
-    	// Students: your code goes here.
     	this.hiddenCard = card;//put the given card as computer player's hidden card
     	System.out.println(this.name+ " takes a hidden card.");//print the message that player takes a hidden card
     }
@@ -74,7 +72,6 @@ public class ComputerPlayer {
      * @param card being taken
      */
     public void takeVisibleCard(int card) { 
-    	// Students: your code goes here.
     	this.sumOfVisibleCards += card;//add the value of given card to computer player's sumOfVisibleCards
     	System.out.println(this.name +" takes "+card);//print message that computer player takes the given card
     }
@@ -84,7 +81,6 @@ public class ComputerPlayer {
      * @return sumOfVisibleCards
      */
     public int getSumOfVisibleCards() { 
-    	// Students: your code goes here.
     	return this.sumOfVisibleCards;//return the total points of visible cards
     }
     
@@ -94,7 +90,6 @@ public class ComputerPlayer {
      * @return total score 
      */
     public int getScore() { 
-    	// Students: your code goes here.
     	return this.hiddenCard + this.sumOfVisibleCards;//return the total points of visible cards plus hidden cards
     }
 }
